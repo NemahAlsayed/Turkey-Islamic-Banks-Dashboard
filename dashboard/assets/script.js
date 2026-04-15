@@ -233,12 +233,12 @@ function setupThemeToggle() {
 window.addEventListener('DOMContentLoaded', async () => {
     setupThemeToggle();
 
-    const market = await loadWideCSV('../data/Market Size & Sector Overview.csv');
-    const financing = await loadWideCSV('../data/Financing Portfolio (Islamic Products).csv');
-    const deposits = await loadWideCSV('../data/Deposits & Participation Accounts.csv');
-    const risk = await loadWideCSV('../data/Risk & Stability Metrics.csv');
-    const esg = await loadWideCSV('../data/ESG & Climate Metrics.csv'); // only 2025–2021
-    const macro = await loadWideCSV('../data/Macroeconomic & Participation Banking Data.csv');
+    const market = await loadWideCSV('../data/Market_Size.csv');
+    const financing = await loadWideCSV('../data/Financing_Portfolio_Islamic_Products.csv');
+    const deposits = await loadWideCSV('../data/Deposits_Participation_Accounts.csv');
+    const risk = await loadWideCSV('../data/Risk_Stability_Metrics.csv');
+    const esg = await loadWideCSV('../data/ESG_Climate_Metrics.csv'); // only 2025–2021
+    const macro = await loadWideCSV('../data/Macroeconomic_Participation_Banking_Data.csv');
 
     updateKPIs(market);
     buildMarketChart(market);
