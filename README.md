@@ -32,12 +32,9 @@ The dashboard is hosted on **GitHub Pages** and built using **Plotly**, **HTML**
 
 ## 📁 Repository Structure  
 /dashboard
-index.html
-/assets
-style.css
-script.js
-logo.png
-
+    /assets
+    style.css
+    script.js
 /data
 market_overview.csv
 financing_portfolio.csv
@@ -46,10 +43,7 @@ risk_metrics.csv
 esg_metrics.csv
 macro.csv
 
-/scripts
-clean_data.ipynb
-build_dashboard.ipynb
-
+index.html
 
 ---
 
@@ -58,12 +52,11 @@ build_dashboard.ipynb
 - **HTML5 / CSS3**  
 - **JavaScript**  
 - **GitHub Pages**  
-- **Python (Colab)** for data cleaning  
-
+ 
 ---
 
 ## 🌐 Live Dashboard  
-*(Add your GitHub Pages link here once deployed)*
+https://nemahalsayed.github.io/Turkey-Islamic-Banks-Dashboard/
 
 ---
 
