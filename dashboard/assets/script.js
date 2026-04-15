@@ -19,7 +19,11 @@ async function loadWideCSV(path) {
         const metricName = rows[i][0].trim();
         const values = rows[i]
             .slice(1)
-            .map(v => Number(v.replace('%', '').replace(',', '.')));
+            .map(v => {
+                // Remove quotes, percent signs, and commas (thousands separators)
+                const cleaned = v.replace(/"/g, '').replace('%', '').replace(/,/g, '');
+                return Number(cleaned) || 0;
+            });
         metrics[metricName] = values;
     }
 
