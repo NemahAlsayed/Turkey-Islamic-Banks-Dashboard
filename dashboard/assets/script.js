@@ -4,6 +4,11 @@
 
 async function loadWideCSV(path) {
     const res = await fetch(path);
+    if (!res.ok) {
+        console.error('Failed to load CSV:', path, res.status);
+        return { years: [], metrics: {} };
+    }
+
     const text = await res.text();
     const rows = text.trim().split('\n').map(r => r.split(','));
 
@@ -14,7 +19,7 @@ async function loadWideCSV(path) {
         const metricName = rows[i][0].trim();
         const values = rows[i]
             .slice(1)
-            .map(v => Number(v.replace('%','').replace(',','.')));
+            .map(v => Number(v.replace('%', '').replace(',', '.')));
         metrics[metricName] = values;
     }
 
@@ -26,7 +31,7 @@ async function loadWideCSV(path) {
    ============================================================ */
 
 function formatNumber(x) {
-    if (!x) return '-';
+    if (x === null || x === undefined) return '-';
     const n = Number(x);
     if (isNaN(n)) return x;
     if (n >= 1e12) return (n / 1e12).toFixed(1) + 'T';
@@ -35,29 +40,28 @@ function formatNumber(x) {
     return n.toLocaleString('en-US');
 }
 
-function formatPercent(x) {
-    if (!x) return '-';
-    return (Number(x) * 100).toFixed(1) + '%';
-}
-
 /* ============================================================
    3. KPI UPDATER
    ============================================================ */
 
 function updateKPIs(market) {
-    const latestIndex = 0; // 2025 is first column
+    if (!market.years.length) return;
+
+    // assuming first column is latest year (e.g., 2025)
+    const latestIndex = 0;
 
     document.getElementById('kpi-assets').textContent =
-        formatNumber(market.metrics["Total Assets of Participation Banks"][latestIndex]);
+        formatNumber(market.metrics["Total Assets of Participation Banks"]?.[latestIndex]);
 
     document.getElementById('kpi-financing').textContent =
-        formatNumber(market.metrics["Total Financing"][latestIndex]);
+        formatNumber(market.metrics["Total Financing"]?.[latestIndex]);
 
     document.getElementById('kpi-deposits').textContent =
-        formatNumber(market.metrics["Total Deposits"][latestIndex]);
+        formatNumber(market.metrics["Total Deposits"]?.[latestIndex]);
 
+    const share = market.metrics["Participation Banking Market Share"]?.[latestIndex];
     document.getElementById('kpi-share').textContent =
-        market.metrics["Participation Banking Market Share"][latestIndex] + "%";
+        share !== undefined ? share + "%" : '-';
 }
 
 /* ============================================================
@@ -65,6 +69,8 @@ function updateKPIs(market) {
    ============================================================ */
 
 function buildMarketChart(market) {
+    if (!market.years.length) return;
+
     Plotly.newPlot('market_chart', [
         {
             x: market.years,
@@ -90,6 +96,8 @@ function buildMarketChart(market) {
 }
 
 function buildFinancingChart(fin) {
+    if (!fin.years.length) return;
+
     Plotly.newPlot('financing_chart', [
         {
             x: fin.years,
@@ -113,6 +121,8 @@ function buildFinancingChart(fin) {
 }
 
 function buildDepositsChart(dep) {
+    if (!dep.years.length) return;
+
     Plotly.newPlot('deposits_chart', [
         {
             x: dep.years,
@@ -135,6 +145,8 @@ function buildDepositsChart(dep) {
 }
 
 function buildRiskChart(risk) {
+    if (!risk.years.length) return;
+
     Plotly.newPlot('risk_chart', [
         {
             x: risk.years,
@@ -159,6 +171,8 @@ function buildRiskChart(risk) {
 }
 
 function buildESGChart(esg) {
+    if (!esg.years.length) return;
+
     Plotly.newPlot('esg_chart', [
         {
             x: esg.years,
@@ -182,6 +196,8 @@ function buildESGChart(esg) {
 }
 
 function buildMacroChart(macro) {
+    if (!macro.years.length) return;
+
     Plotly.newPlot('macro_chart', [
         {
             x: macro.years,
@@ -233,11 +249,12 @@ function setupThemeToggle() {
 window.addEventListener('DOMContentLoaded', async () => {
     setupThemeToggle();
 
+    // IMPORTANT: paths are relative to index.html in root
     const market = await loadWideCSV('./data/Market_Size.csv');
     const financing = await loadWideCSV('./data/Financing_Portfolio_Islamic_Products.csv');
     const deposits = await loadWideCSV('./data/Deposits_Participation_Accounts.csv');
     const risk = await loadWideCSV('./data/Risk_Stability_Metrics.csv');
-    const esg = await loadWideCSV('./data/ESG_Climate_Metrics.csv'); // only 2025–2021
+    const esg = await loadWideCSV('./data/ESG_Climate_Metrics.csv');
     const macro = await loadWideCSV('./data/Macroeconomic_Participation_Banking_Data.csv');
 
     updateKPIs(market);
