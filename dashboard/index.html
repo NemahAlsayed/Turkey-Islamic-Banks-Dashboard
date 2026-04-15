@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Türkiye Participation Banking Dashboard</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body class="light">
+
+<nav class="navbar">
+    <div class="nav-logo">Participation Banking Dashboard</div>
+    <ul class="nav-links">
+        <li><a href="#market">Market Overview</a></li>
+        <li><a href="#financing">Financing Portfolio</a></li>
+        <li><a href="#deposits">Deposits</a></li>
+        <li><a href="#risk">Risk Metrics</a></li>
+        <li><a href="#esg">ESG Metrics</a></li>
+        <li><a href="#macro">Macroeconomics</a></li>
+        <li><a href="#explorer">Data Explorer</a></li>
+    </ul>
+    <button id="theme-toggle" class="theme-toggle">Dark mode</button>
+</nav>
+
+<header class="header">
+    <h1>Türkiye Participation Banking Intelligence Dashboard</h1>
+    <p>Interactive analytics for Islamic finance (2015–2025)</p>
+</header>
+
+<section id="market" class="section">
+    <h2>Market Overview</h2>
+
+    <!-- KPI cards -->
+    <div class="kpi-row">
+        <div class="kpi-card">
+            <div class="kpi-label">Total Assets</div>
+            <div class="kpi-value" id="kpi-assets"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Total Financing</div>
+            <div class="kpi-value" id="kpi-financing"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">Total Deposits</div>
+            <div class="kpi-value" id="kpi-deposits"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">PB Market Share</div>
+            <div class="kpi-value" id="kpi-share"></div>
+        </div>
+    </div>
+
+    <div id="market_chart"></div>
+</section>
+
+<section id="financing" class="section">
+    <h2>Financing Portfolio (Islamic Products)</h2>
+    <div id="financing_chart"></div>
+</section>
+
+<section id="deposits" class="section">
+    <h2>Deposits & Participation Accounts</h2>
+    <div id="deposits_chart"></div>
+</section>
+
+<section id="risk" class="section">
+    <h2>Risk & Stability Metrics</h2>
+    <div id="risk_chart"></div>
+</section>
+
+<section id="esg" class="section">
+    <h2>ESG & Climate Metrics</h2>
+    <div id="esg_chart"></div>
+</section>
+
+<section id="macro" class="section">
+    <h2>Macroeconomic Indicators</h2>
+    <div id="macro_chart"></div>
+</section>
+
+<section id="explorer" class="section">
+    <h2>Data Explorer</h2>
+    <div id="table_container"></div>
+</section>
+
+<script src="assets/script.js"></script>
+</body>
+</html>
