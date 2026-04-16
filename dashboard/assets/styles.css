@@ -1,15 +1,31 @@
+/* ============================================================
+   ROOT THEME VARIABLES
+   ============================================================ */
 :root {
     --navy: #0A1A2F;
     --emerald: #0F8A5F;
     --gold: #C9A227;
     --light-gray: #E5E7EB;
     --white: #FFFFFF;
+
     --dark-bg: #050814;
     --dark-card: #111827;
     --dark-text: #F9FAFB;
+
+    --radius: 12px;
+    --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-dark: 0 4px 16px rgba(0,0,0,0.6);
 }
 
-/* global themes */
+/* ============================================================
+   GLOBAL THEME STATES
+   ============================================================ */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
 body.light {
     background-color: var(--light-gray);
     color: var(--navy);
@@ -20,50 +36,76 @@ body.dark {
     color: var(--dark-text);
 }
 
-/* navbar */
-.navbar {
-    background-color: var(--navy);
-    padding: 15px 40px;
+/* ============================================================
+   PREMIUM SIDEBAR
+   ============================================================ */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--navy);
+    padding: 40px 30px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.2);
 }
 
-body.dark .navbar {
-    background-color: #020617;
+body.dark .sidebar {
+    background: #020617;
 }
 
-.nav-logo {
+.brand-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    color: var(--white);
+}
+
+.brand-title span {
     color: var(--gold);
-    font-size: 20px;
-    font-weight: 600;
 }
 
-.nav-links {
-    list-style: none;
+.tagline {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--emerald);
+    letter-spacing: 0.5px;
+}
+
+.nav {
+    margin-top: 40px;
     display: flex;
-    gap: 25px;
+    flex-direction: column;
+    gap: 14px;
 }
 
-.nav-links a {
+.nav a {
     color: var(--white);
     text-decoration: none;
+    font-size: 15px;
     font-weight: 500;
+    padding: 6px 0;
+    transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
+.nav a:hover {
     color: var(--gold);
 }
 
-/* theme toggle */
+/* Theme toggle button */
 .theme-toggle {
     background: var(--emerald);
     color: var(--white);
     border: none;
-    padding: 8px 14px;
+    padding: 10px 18px;
     border-radius: 999px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s ease;
 }
 
 body.dark .theme-toggle {
@@ -71,93 +113,198 @@ body.dark .theme-toggle {
     color: var(--navy);
 }
 
-/* header */
-.header {
-    text-align: center;
-    padding: 60px 20px;
-    background-color: var(--white);
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+.content {
+    margin-left: 260px;
+    padding: 40px 50px;
 }
 
-body.dark .header {
-    background-color: var(--dark-card);
+/* ============================================================
+   SLICERS
+   ============================================================ */
+.slicers {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
-.header h1 {
-    font-size: 36px;
+.slicer label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 500;
 }
 
-.header p {
-    color: var(--emerald);
-    font-size: 18px;
+.slicer select {
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    background: var(--white);
 }
 
-/* sections */
+body.dark .slicer select {
+    background: var(--dark-card);
+    color: var(--dark-text);
+    border: 1px solid #374151;
+}
+
+/* ============================================================
+   SECTION WRAPPER
+   ============================================================ */
 .section {
-    padding: 60px;
-    background-color: var(--white);
-    margin: 30px auto;
-    width: 85%;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: var(--white);
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-light);
 }
 
 body.dark .section {
-    background-color: var(--dark-card);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+    background: var(--dark-card);
+    box-shadow: var(--shadow-dark);
 }
 
-.section h2 {
-    color: var(--emerald);
-    margin-bottom: 20px;
+.section-title {
+    font-family: 'Playfair Display', serif;
     font-size: 28px;
-}
-
-/* KPI cards */
-.kpi-row {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+    color: var(--emerald);
     margin-bottom: 25px;
 }
 
+.section-note {
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+/* ============================================================
+   KPI GRID
+   ============================================================ */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
 .kpi-card {
-    background-color: var(--light-gray);
-    border-radius: 10px;
-    padding: 14px 16px;
+    background: var(--light-gray);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-light);
 }
 
 body.dark .kpi-card {
-    background-color: #020617;
+    background: #1f2937;
+    box-shadow: var(--shadow-dark);
 }
 
-.kpi-label {
-    font-size: 12px;
+.kpi-card h3 {
+    font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: #6B7280;
 }
 
-body.dark .kpi-label {
+body.dark .kpi-card h3 {
     color: #9CA3AF;
 }
 
 .kpi-value {
-    margin-top: 6px;
-    font-size: 20px;
+    margin-top: 10px;
+    font-size: 24px;
     font-weight: 600;
 }
 
-/* chart containers */
-#market_chart,
-#financing_chart,
-#deposits_chart,
-#risk_chart,
-#esg_chart,
-#macro_chart {
+/* ============================================================
+   CHART CONTAINERS
+   ============================================================ */
+.chart {
     height: 450px;
 }
 
-/* data table */
-#table_container {
+/* ============================================================
+   DATA TABLE
+   ============================================================ */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
+    font-size: 14px;
+}
+
+.data-table th {
+    background: var(--emerald);
+    color: var(--white);
+    padding: 12px;
+    text-align: left;
+}
+
+.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #d1d5db;
+}
+
+body.dark .data-table td {
+    border-bottom: 1px solid #374151;
+}
+
+/* ============================================================
+   MODAL (D3)
+   ============================================================ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal {
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--radius);
+    width: 80%;
+    max-width: 900px;
+    box-shadow: var(--shadow-dark);
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+body.dark .modal {
+    background: var(--dark-card);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--navy);
+}
+
+body.dark .modal-close {
+    color: var(--dark-text);
+}
+
+@keyframes fadeIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
 }
