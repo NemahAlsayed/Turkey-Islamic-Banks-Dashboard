@@ -2,6 +2,25 @@
    1. CSV LOADER (WIDE FORMAT → USABLE FORMAT)
    ============================================================ */
 
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current);
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+    result.push(current);
+    return result;
+}
+
 async function loadWideCSV(path) {
     const res = await fetch(path);
     if (!res.ok) {
@@ -10,7 +29,7 @@ async function loadWideCSV(path) {
     }
 
     const text = await res.text();
-    const rows = text.trim().split('\n').map(r => r.split(','));
+    const rows = text.trim().split('\n').map(r => parseCSVLine(r));
 
     const years = rows[0].slice(1).map(y => y.trim());
     const metrics = {};
