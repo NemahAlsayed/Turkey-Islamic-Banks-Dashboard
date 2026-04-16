@@ -82,6 +82,11 @@ function getYearIndex(data, year) {
 let marketData, financingData, depositsData, riskData, esgData, macroData;
 let currentYear = null;
 let currentCustomerType = 'all';
+let financingView = 'all';
+let riskMetrics = 'npf-car';
+let esgView = 'sukuk-score';
+let macroMetrics = 'cpi-m2';
+let forecastMetric = 'participation';
 
 /* ============================================================
    4. KPI UPDATER (SINGLE-YEAR VIEW)
@@ -181,31 +186,62 @@ function buildFinancingChart(fin) {
     const years = fin.years;
     const murabaha = fin.metrics["Murabaha Financing"] || [];
     const ijara = fin.metrics["Ijara (Leasing) Financing"] || [];
+    const mudaraba = fin.metrics["Mudaraba Financing"] || [];
+    const musharaka = fin.metrics["Musharaka Financing"] || [];
 
-    const traces = [
-        {
+    const traces = [];
+
+    // Always include Murabaha and Ijara
+    traces.push({
+        x: years,
+        y: murabaha,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Murabaha',
+        line: { color: '#0F8A5F' },
+        marker: { size: 6 },
+        text: buildHoverText(years, murabaha),
+        hovertemplate: '%{text}<extra></extra>'
+    });
+
+    traces.push({
+        x: years,
+        y: ijara,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Ijara',
+        line: { color: '#0A1A2F' },
+        marker: { size: 6 },
+        text: buildHoverText(years, ijara),
+        hovertemplate: '%{text}<extra></extra>'
+    });
+
+    // Add Mudaraba and Musharaka only if "all" is selected
+    if (financingView === 'all') {
+        traces.push({
             x: years,
-            y: murabaha,
+            y: mudaraba,
             type: 'scatter',
             mode: 'lines+markers',
-            name: 'Murabaha',
-            line: { color: '#0F8A5F' },
+            name: 'Mudaraba',
+            line: { color: '#C9A227' },
             marker: { size: 6 },
-            text: buildHoverText(years, murabaha),
+            text: buildHoverText(years, mudaraba),
             hovertemplate: '%{text}<extra></extra>'
-        },
-        {
+        });
+
+        traces.push({
             x: years,
-            y: ijara,
+            y: musharaka,
             type: 'scatter',
             mode: 'lines+markers',
-            name: 'Ijara',
-            line: { color: '#0A1A2F' },
+            name: 'Musharaka',
+            line: { color: '#C0392B' },
             marker: { size: 6 },
-            text: buildHoverText(years, ijara),
+            text: buildHoverText(years, musharaka),
             hovertemplate: '%{text}<extra></extra>'
-        }
-    ];
+        });
+    }
 
     if (currentYear) {
         const idx = years.indexOf(currentYear);
@@ -228,6 +264,27 @@ function buildFinancingChart(fin) {
                 hoverinfo: 'skip',
                 showlegend: false
             });
+            
+            if (financingView === 'all') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [mudaraba[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+                traces.push({
+                    x: [years[idx]],
+                    y: [musharaka[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+            }
         }
     }
 
@@ -317,9 +374,14 @@ function buildRiskChart(risk) {
     const years = risk.years;
     const npf = risk.metrics["Non_Performing Financing Ratio (NPF Ratio)"] || [];
     const car = risk.metrics["Capital Adequacy Ratio"] || [];
+    const lcr = risk.metrics["Liquidity Coverage Ratio"] || [];
+    const ldr = risk.metrics["Loan_to_Deposit Ratio"] || [];
 
-    const traces = [
-        {
+    const traces = [];
+    let yaxes = {};
+
+    if (riskMetrics === 'npf-car' || riskMetrics === 'all') {
+        traces.push({
             x: years,
             y: npf,
             type: 'scatter',
@@ -328,50 +390,119 @@ function buildRiskChart(risk) {
             line: { color: '#C0392B' },
             marker: { size: 6 },
             text: buildHoverText(years, npf),
-            hovertemplate: '%{text}<extra></extra>'
-        },
-        {
+            hovertemplate: '%{text}<extra></extra>',
+            yaxis: riskMetrics === 'all' ? 'y' : 'y'
+        });
+
+        traces.push({
             x: years,
             y: car,
             type: 'scatter',
             mode: 'lines+markers',
             name: 'CAR',
-            yaxis: 'y2',
             line: { color: '#0F8A5F' },
             marker: { size: 6 },
             text: buildHoverText(years, car),
-            hovertemplate: '%{text}<extra></extra>'
-        }
-    ];
+            hovertemplate: '%{text}<extra></extra>',
+            yaxis: 'y2'
+        });
+    }
+
+    if (riskMetrics === 'lcr-ldr' || riskMetrics === 'all') {
+        traces.push({
+            x: years,
+            y: lcr,
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'LCR',
+            line: { color: '#0A1A2F' },
+            marker: { size: 6 },
+            text: buildHoverText(years, lcr),
+            hovertemplate: '%{text}<extra></extra>',
+            yaxis: riskMetrics === 'all' ? 'y3' : 'y'
+        });
+
+        traces.push({
+            x: years,
+            y: ldr,
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'LDR',
+            line: { color: '#C9A227' },
+            marker: { size: 6 },
+            text: buildHoverText(years, ldr),
+            hovertemplate: '%{text}<extra></extra>',
+            yaxis: riskMetrics === 'all' ? 'y4' : 'y2'
+        });
+    }
 
     if (currentYear) {
         const idx = years.indexOf(currentYear);
         if (idx >= 0) {
-            traces.push({
-                x: [years[idx]],
-                y: [npf[idx]],
-                type: 'scatter',
-                mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
-                hoverinfo: 'skip',
-                showlegend: false
-            });
-            traces.push({
-                x: [years[idx]],
-                y: [car[idx]],
-                type: 'scatter',
-                mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
-                hoverinfo: 'skip',
-                showlegend: false
-            });
+            if (riskMetrics === 'npf-car' || riskMetrics === 'all') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [npf[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+
+                traces.push({
+                    x: [years[idx]],
+                    y: [car[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false,
+                    yaxis: 'y2'
+                });
+            }
+
+            if (riskMetrics === 'lcr-ldr' || riskMetrics === 'all') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [lcr[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false,
+                    yaxis: riskMetrics === 'all' ? 'y3' : 'y'
+                });
+
+                traces.push({
+                    x: [years[idx]],
+                    y: [ldr[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false,
+                    yaxis: riskMetrics === 'all' ? 'y4' : 'y2'
+                });
+            }
         }
     }
 
-    Plotly.newPlot('risk_chart', traces, {
-        yaxis2: { overlaying: 'y', side: 'right' },
+    let layout = {
         margin: { t: 30, r: 40, l: 60, b: 40 }
-    });
+    };
+
+    if (riskMetrics === 'npf-car') {
+        layout.yaxis2 = { overlaying: 'y', side: 'right' };
+    } else if (riskMetrics === 'lcr-ldr') {
+        layout.yaxis2 = { overlaying: 'y', side: 'right' };
+    } else if (riskMetrics === 'all') {
+        layout.yaxis2 = { overlaying: 'y', side: 'right' };
+        layout.yaxis3 = { overlaying: 'y', side: 'left', position: 0.15 };
+        layout.yaxis4 = { overlaying: 'y', side: 'right', position: 0.85 };
+    }
+
+    Plotly.newPlot('risk_chart', traces, layout);
 }
 
 /* ---------- 5.6 ESG (FULL SERIES + HIGHLIGHTED YEAR) ---------- */
@@ -381,10 +512,14 @@ function buildESGChart(esg) {
 
     const years = esg.years;
     const sukuk = esg.metrics["Sustainable Sukuk"] || [];
+    const emissions = esg.metrics["GHG Emissions"] || [];
+    const social = esg.metrics["Social Impact Projects/ SME Financing"] || [];
     const score = esg.metrics["Avg. ESG Score (Weighted)"] || [];
 
-    const traces = [
-        {
+    const traces = [];
+
+    if (esgView === 'sukuk-score') {
+        traces.push({
             x: years,
             y: sukuk,
             type: 'bar',
@@ -392,33 +527,77 @@ function buildESGChart(esg) {
             marker: { color: '#0F8A5F' },
             text: buildHoverText(years, sukuk),
             hovertemplate: '%{text}<extra></extra>'
-        },
-        {
+        });
+    } else if (esgView === 'emissions-score') {
+        traces.push({
             x: years,
-            y: score,
-            type: 'scatter',
-            mode: 'lines+markers',
-            name: 'ESG Score',
-            yaxis: 'y2',
-            line: { color: '#C9A227' },
-            marker: { size: 6 },
-            text: buildHoverText(years, score),
+            y: emissions,
+            type: 'bar',
+            name: 'GHG Emissions',
+            marker: { color: '#C0392B' },
+            text: buildHoverText(years, emissions),
             hovertemplate: '%{text}<extra></extra>'
-        }
-    ];
+        });
+    } else if (esgView === 'social-score') {
+        traces.push({
+            x: years,
+            y: social,
+            type: 'bar',
+            name: 'Social Impact Projects / SME Financing',
+            marker: { color: '#0A1A2F' },
+            text: buildHoverText(years, social),
+            hovertemplate: '%{text}<extra></extra>'
+        });
+    }
+
+    traces.push({
+        x: years,
+        y: score,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'ESG Score',
+        yaxis: 'y2',
+        line: { color: '#C9A227' },
+        marker: { size: 6 },
+        text: buildHoverText(years, score),
+        hovertemplate: '%{text}<extra></extra>'
+    });
 
     if (currentYear) {
         const idx = years.indexOf(currentYear);
         if (idx >= 0) {
-            traces.push({
-                x: [years[idx]],
-                y: [sukuk[idx]],
-                type: 'scatter',
-                mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
-                hoverinfo: 'skip',
-                showlegend: false
-            });
+            if (esgView === 'sukuk-score') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [sukuk[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+            } else if (esgView === 'emissions-score') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [emissions[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+            } else if (esgView === 'social-score') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [social[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false
+                });
+            }
+
             traces.push({
                 x: [years[idx]],
                 y: [score[idx]],
@@ -426,7 +605,8 @@ function buildESGChart(esg) {
                 mode: 'markers',
                 marker: { color: '#C9A227', size: 12 },
                 hoverinfo: 'skip',
-                showlegend: false
+                showlegend: false,
+                yaxis: 'y2'
             });
         }
     }
@@ -445,20 +625,25 @@ function buildMacroChart(macro) {
     const years = macro.years;
     const cpi = macro.metrics["Inflation Rate (CPI %)"] || [];
     const m2 = macro.metrics["Money Supply M2"] || [];
+    const financing = macro.metrics["PB Sectoral Financing"] || [];
 
-    const traces = [
-        {
-            x: years,
-            y: cpi,
-            type: 'scatter',
-            mode: 'lines+markers',
-            name: 'CPI',
-            line: { color: '#C0392B' },
-            marker: { size: 6 },
-            text: buildHoverText(years, cpi),
-            hovertemplate: '%{text}<extra></extra>'
-        },
-        {
+    const traces = [];
+
+    // Always include CPI
+    traces.push({
+        x: years,
+        y: cpi,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'CPI',
+        line: { color: '#C0392B' },
+        marker: { size: 6 },
+        text: buildHoverText(years, cpi),
+        hovertemplate: '%{text}<extra></extra>'
+    });
+
+    if (macroMetrics === 'cpi-m2') {
+        traces.push({
             x: years,
             y: m2,
             type: 'scatter',
@@ -469,8 +654,21 @@ function buildMacroChart(macro) {
             marker: { size: 6 },
             text: buildHoverText(years, m2),
             hovertemplate: '%{text}<extra></extra>'
-        }
-    ];
+        });
+    } else if (macroMetrics === 'cpi-financing') {
+        traces.push({
+            x: years,
+            y: financing,
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'PB Sectoral Financing',
+            yaxis: 'y2',
+            line: { color: '#0F8A5F' },
+            marker: { size: 6 },
+            text: buildHoverText(years, financing),
+            hovertemplate: '%{text}<extra></extra>'
+        });
+    }
 
     if (currentYear) {
         const idx = years.indexOf(currentYear);
@@ -484,15 +682,30 @@ function buildMacroChart(macro) {
                 hoverinfo: 'skip',
                 showlegend: false
             });
-            traces.push({
-                x: [years[idx]],
-                y: [m2[idx]],
-                type: 'scatter',
-                mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
-                hoverinfo: 'skip',
-                showlegend: false
-            });
+
+            if (macroMetrics === 'cpi-m2') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [m2[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false,
+                    yaxis: 'y2'
+                });
+            } else if (macroMetrics === 'cpi-financing') {
+                traces.push({
+                    x: [years[idx]],
+                    y: [financing[idx]],
+                    type: 'scatter',
+                    mode: 'markers',
+                    marker: { color: '#C9A227', size: 12 },
+                    hoverinfo: 'skip',
+                    showlegend: false,
+                    yaxis: 'y2'
+                });
+            }
         }
     }
 
@@ -508,7 +721,15 @@ function buildForecastChart(dep) {
     if (!dep.years.length) return;
 
     const years = dep.years;
-    const yArr = dep.metrics["Participation Accounts"] || [];
+    
+    let metricKey = "Participation Accounts";
+    if (forecastMetric === 'special') {
+        metricKey = "Special Current Accounts";
+    } else if (forecastMetric === 'term') {
+        metricKey = "Term Participation Accounts";
+    }
+
+    const yArr = dep.metrics[metricKey] || [];
     if (!years.length || !yArr.length) return;
 
     const xNum = years.map(y => parseInt(y, 10));
@@ -526,7 +747,7 @@ function buildForecastChart(dep) {
     const slope = (n * sumXY - sumX * sumY) / denom;
     const intercept = (sumY - slope * sumX) / n;
 
-    const lastYear = xNum[xNum.length - 1];
+    const lastYear = Math.max(...xNum);
     const forecastYearsNum = [lastYear + 1, lastYear + 2, lastYear + 3];
     const forecastYears = forecastYearsNum.map(String);
     const forecastValues = forecastYearsNum.map(x => slope * x + intercept);
@@ -537,7 +758,7 @@ function buildForecastChart(dep) {
             y: yArr,
             type: 'scatter',
             mode: 'lines+markers',
-            name: 'Actual Participation Accounts',
+            name: 'Actual ' + metricKey,
             line: { color: '#0F8A5F' },
             marker: { size: 6 },
             text: buildHoverText(years, yArr),
@@ -715,12 +936,17 @@ function setupThemeToggle() {
 }
 
 /* ============================================================
-   9. SLICERS (YEAR + CUSTOMER TYPE)
+   9. SLICERS (YEAR + CUSTOMER TYPE + CHART-SPECIFIC OPTIONS)
    ============================================================ */
 
 function setupSlicers() {
     const yearSelect = document.getElementById('year-slicer');
     const customerSelect = document.getElementById('customer-slicer');
+    const financingViewSelect = document.getElementById('financing-view');
+    const riskMetricsSelect = document.getElementById('risk-metrics');
+    const esgViewSelect = document.getElementById('esg-view');
+    const macroMetricsSelect = document.getElementById('macro-metrics');
+    const forecastMetricSelect = document.getElementById('forecast-metric');
 
     if (marketData && marketData.years.length && yearSelect) {
         yearSelect.innerHTML = '';
@@ -744,6 +970,41 @@ function setupSlicers() {
     if (customerSelect) {
         customerSelect.addEventListener('change', () => {
             currentCustomerType = customerSelect.value;
+            updateAll();
+        });
+    }
+
+    if (financingViewSelect) {
+        financingViewSelect.addEventListener('change', () => {
+            financingView = financingViewSelect.value;
+            updateAll();
+        });
+    }
+
+    if (riskMetricsSelect) {
+        riskMetricsSelect.addEventListener('change', () => {
+            riskMetrics = riskMetricsSelect.value;
+            updateAll();
+        });
+    }
+
+    if (esgViewSelect) {
+        esgViewSelect.addEventListener('change', () => {
+            esgView = esgViewSelect.value;
+            updateAll();
+        });
+    }
+
+    if (macroMetricsSelect) {
+        macroMetricsSelect.addEventListener('change', () => {
+            macroMetrics = macroMetricsSelect.value;
+            updateAll();
+        });
+    }
+
+    if (forecastMetricSelect) {
+        forecastMetricSelect.addEventListener('change', () => {
+            forecastMetric = forecastMetricSelect.value;
             updateAll();
         });
     }
