@@ -20,7 +20,12 @@ async function loadWideCSV(path) {
         const values = rows[i]
             .slice(1)
             .map(v => {
-                const cleaned = v.replace(/"/g, '').replace('%', '').replace(/,/g, '');
+                let cleaned = v.replace(/"/g, '').replace('%', '');
+                if (v.includes('%')) {
+                    cleaned = cleaned.replace(/,/g, '.');
+                } else {
+                    cleaned = cleaned.replace(/,/g, '');
+                }
                 return Number(cleaned) || 0;
             });
         metrics[metricName] = values;
