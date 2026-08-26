@@ -89,6 +89,18 @@ let macroMetrics = 'cpi-m2';
 let forecastMetric = 'participation';
 
 /* ============================================================
+   3.1 PREMIUM COLOR PALETTE
+   ============================================================ */
+const PALETTE = {
+    navy: '#013026',
+    blue: '#014760',
+    emerald: '#107e57',
+    lime: '#a1ce3f',
+    paleLime: '#cbe58e'
+};
+
+
+/* ============================================================
    4. KPI UPDATER (SINGLE-YEAR VIEW)
    ============================================================ */
 
@@ -131,7 +143,7 @@ function buildMarketChart(market) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'Total Assets',
-            line: { color: '#0F8A5F' },
+            line: { color: '#107e57' },
             marker: { size: 6 },
             text: buildHoverText(years, assets),
             hovertemplate: '%{text}<extra></extra>'
@@ -142,7 +154,7 @@ function buildMarketChart(market) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'Total Deposits',
-            line: { color: '#C9A227' },
+            line: { color: '#a1ce3f' },
             marker: { size: 6 },
             text: buildHoverText(years, deposits),
             hovertemplate: '%{text}<extra></extra>'
@@ -157,7 +169,7 @@ function buildMarketChart(market) {
                 y: [assets[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false
             });
@@ -166,7 +178,7 @@ function buildMarketChart(market) {
                 y: [deposits[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false
             });
@@ -198,7 +210,7 @@ function buildFinancingChart(fin) {
         type: 'scatter',
         mode: 'lines+markers',
         name: 'Murabaha',
-        line: { color: '#0F8A5F' },
+        line: { color: '#107e57' },
         marker: { size: 6 },
         text: buildHoverText(years, murabaha),
         hovertemplate: '%{text}<extra></extra>'
@@ -210,7 +222,7 @@ function buildFinancingChart(fin) {
         type: 'scatter',
         mode: 'lines+markers',
         name: 'Ijara',
-        line: { color: '#0A1A2F' },
+        line: { color: '#014760' },
         marker: { size: 6 },
         text: buildHoverText(years, ijara),
         hovertemplate: '%{text}<extra></extra>'
@@ -224,7 +236,7 @@ function buildFinancingChart(fin) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'Mudaraba',
-            line: { color: '#C9A227' },
+            line: { color: '#a1ce3f' },
             marker: { size: 6 },
             text: buildHoverText(years, mudaraba),
             hovertemplate: '%{text}<extra></extra>'
@@ -236,7 +248,7 @@ function buildFinancingChart(fin) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'Musharaka',
-            line: { color: '#C0392B' },
+            line: { color: '#013026' },
             marker: { size: 6 },
             text: buildHoverText(years, musharaka),
             hovertemplate: '%{text}<extra></extra>'
@@ -251,7 +263,7 @@ function buildFinancingChart(fin) {
                 y: [murabaha[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false
             });
@@ -260,7 +272,7 @@ function buildFinancingChart(fin) {
                 y: [ijara[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false
             });
@@ -271,7 +283,7 @@ function buildFinancingChart(fin) {
                     y: [mudaraba[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false
                 });
@@ -280,7 +292,7 @@ function buildFinancingChart(fin) {
                     y: [musharaka[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false
                 });
@@ -323,7 +335,7 @@ function buildDepositsChart(dep) {
         x,
         y,
         type: 'bar',
-        marker: { color: '#0F8A5F' },
+        marker: { color: '#107e57' },
         text: y.map(v => formatNumber(v)),
         hovertemplate: '%{x}: %{text}<extra></extra>'
     };
@@ -356,7 +368,7 @@ function buildCustomerComparisonChart(dep) {
         x: ['Retail', 'Corporate'],
         y: [retail, corp],
         type: 'bar',
-        marker: { color: ['#0F8A5F', '#0A1A2F'] },
+        marker: { color: ['#107e57', '#014760'] },
         text: [formatNumber(retail), formatNumber(corp)],
         hovertemplate: '%{x}: %{text}<extra></extra>'
     };
@@ -387,7 +399,7 @@ function buildRiskChart(risk) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'NPF Ratio',
-            line: { color: '#C0392B' },
+            line: { color: '#013026' },
             marker: { size: 6 },
             text: buildHoverText(years, npf),
             hovertemplate: '%{text}<extra></extra>',
@@ -400,7 +412,7 @@ function buildRiskChart(risk) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'CAR',
-            line: { color: '#0F8A5F' },
+            line: { color: '#107e57' },
             marker: { size: 6 },
             text: buildHoverText(years, car),
             hovertemplate: '%{text}<extra></extra>',
@@ -415,7 +427,7 @@ function buildRiskChart(risk) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'LCR',
-            line: { color: '#0A1A2F' },
+            line: { color: '#014760' },
             marker: { size: 6 },
             text: buildHoverText(years, lcr),
             hovertemplate: '%{text}<extra></extra>',
@@ -428,7 +440,7 @@ function buildRiskChart(risk) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'LDR',
-            line: { color: '#C9A227' },
+            line: { color: '#a1ce3f' },
             marker: { size: 6 },
             text: buildHoverText(years, ldr),
             hovertemplate: '%{text}<extra></extra>',
@@ -445,7 +457,7 @@ function buildRiskChart(risk) {
                     y: [npf[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false
                 });
@@ -455,7 +467,7 @@ function buildRiskChart(risk) {
                     y: [car[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false,
                     yaxis: 'y2'
@@ -468,7 +480,7 @@ function buildRiskChart(risk) {
                     y: [lcr[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false,
                     yaxis: riskMetrics === 'all' ? 'y3' : 'y'
@@ -479,7 +491,7 @@ function buildRiskChart(risk) {
                     y: [ldr[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false,
                     yaxis: riskMetrics === 'all' ? 'y4' : 'y2'
@@ -524,7 +536,7 @@ function buildESGChart(esg) {
             y: sukuk,
             type: 'bar',
             name: 'Sustainable Sukuk',
-            marker: { color: '#0F8A5F' },
+            marker: { color: '#107e57' },
             text: buildHoverText(years, sukuk),
             hovertemplate: '%{text}<extra></extra>'
         });
@@ -534,7 +546,7 @@ function buildESGChart(esg) {
             y: emissions,
             type: 'bar',
             name: 'GHG Emissions',
-            marker: { color: '#C0392B' },
+            marker: { color: '#013026' },
             text: buildHoverText(years, emissions),
             hovertemplate: '%{text}<extra></extra>'
         });
@@ -544,7 +556,7 @@ function buildESGChart(esg) {
             y: social,
             type: 'bar',
             name: 'Social Impact Projects / SME Financing',
-            marker: { color: '#0A1A2F' },
+            marker: { color: '#014760' },
             text: buildHoverText(years, social),
             hovertemplate: '%{text}<extra></extra>'
         });
@@ -557,7 +569,7 @@ function buildESGChart(esg) {
         mode: 'lines+markers',
         name: 'ESG Score',
         yaxis: 'y2',
-        line: { color: '#C9A227' },
+        line: { color: '#a1ce3f' },
         marker: { size: 6 },
         text: buildHoverText(years, score),
         hovertemplate: '%{text}<extra></extra>'
@@ -572,7 +584,7 @@ function buildESGChart(esg) {
                     y: [sukuk[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false
                 });
@@ -582,7 +594,7 @@ function buildESGChart(esg) {
                     y: [emissions[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false
                 });
@@ -592,7 +604,7 @@ function buildESGChart(esg) {
                     y: [social[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false
                 });
@@ -603,7 +615,7 @@ function buildESGChart(esg) {
                 y: [score[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false,
                 yaxis: 'y2'
@@ -636,7 +648,7 @@ function buildMacroChart(macro) {
         type: 'scatter',
         mode: 'lines+markers',
         name: 'CPI',
-        line: { color: '#C0392B' },
+        line: { color: '#013026' },
         marker: { size: 6 },
         text: buildHoverText(years, cpi),
         hovertemplate: '%{text}<extra></extra>'
@@ -650,7 +662,7 @@ function buildMacroChart(macro) {
             mode: 'lines+markers',
             name: 'M2',
             yaxis: 'y2',
-            line: { color: '#0F8A5F' },
+            line: { color: '#107e57' },
             marker: { size: 6 },
             text: buildHoverText(years, m2),
             hovertemplate: '%{text}<extra></extra>'
@@ -663,7 +675,7 @@ function buildMacroChart(macro) {
             mode: 'lines+markers',
             name: 'PB Sectoral Financing',
             yaxis: 'y2',
-            line: { color: '#0F8A5F' },
+            line: { color: '#107e57' },
             marker: { size: 6 },
             text: buildHoverText(years, financing),
             hovertemplate: '%{text}<extra></extra>'
@@ -678,7 +690,7 @@ function buildMacroChart(macro) {
                 y: [cpi[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false
             });
@@ -689,7 +701,7 @@ function buildMacroChart(macro) {
                     y: [m2[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false,
                     yaxis: 'y2'
@@ -700,7 +712,7 @@ function buildMacroChart(macro) {
                     y: [financing[idx]],
                     type: 'scatter',
                     mode: 'markers',
-                    marker: { color: '#C9A227', size: 12 },
+                    marker: { color: '#a1ce3f', size: 12 },
                     hoverinfo: 'skip',
                     showlegend: false,
                     yaxis: 'y2'
@@ -759,7 +771,7 @@ function buildForecastChart(dep) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'Actual ' + metricKey,
-            line: { color: '#0F8A5F' },
+            line: { color: '#107e57' },
             marker: { size: 6 },
             text: buildHoverText(years, yArr),
             hovertemplate: '%{text}<extra></extra>'
@@ -770,7 +782,7 @@ function buildForecastChart(dep) {
             type: 'scatter',
             mode: 'lines+markers',
             name: 'Forecast',
-            line: { color: '#C9A227', dash: 'dash' },
+            line: { color: '#a1ce3f', dash: 'dash' },
             marker: { size: 6 },
             text: buildHoverText(forecastYears, forecastValues),
             hovertemplate: '%{text}<extra></extra>'
@@ -785,7 +797,7 @@ function buildForecastChart(dep) {
                 y: [yArr[idx]],
                 type: 'scatter',
                 mode: 'markers',
-                marker: { color: '#C9A227', size: 12 },
+                marker: { color: '#a1ce3f', size: 12 },
                 hoverinfo: 'skip',
                 showlegend: false
             });
@@ -835,7 +847,7 @@ function buildTermAccountsChart(dep) {
         x,
         y,
         type: 'bar',
-        marker: { color: '#0F8A5F' },
+        marker: { color: '#107e57' },
         text: y.map(v => formatNumber(v)),
         hovertemplate: '%{x}: %{text}<extra></extra>'
     };
@@ -846,60 +858,110 @@ function buildTermAccountsChart(dep) {
 }
 
 /* ============================================================
-   7. DATA EXPLORER TABLE
+   7. INTERACTIVE GLOSSARY
    ============================================================ */
 
-function buildDataExplorerTable(datasets) {
-    const table = document.getElementById('data-explorer-table');
-    if (!table) return;
+const GLOSSARY_TERMS = [
+    { term: 'Total Assets of Participation Banks', category: 'Market Size', def: 'The combined balance-sheet size (all owned and financed resources) of Türkiye\'s Islamic ("participation") banks — the headline measure of how big the sector is.' },
+    { term: 'Total Financing', category: 'Market Size', def: 'The aggregate value of funds extended to customers through Sharia-compliant contracts such as Murabaha, Ijara, Mudaraba, and Musharaka.' },
+    { term: 'Total Deposits', category: 'Market Size', def: 'The combined balance of all customer funds held by participation banks, including Participation Accounts, Term Participation Accounts, and Special Current Accounts.' },
+    { term: 'Participation Banking Market Share', category: 'Market Size', def: 'The percentage of Türkiye\'s total banking sector assets held by participation (Islamic) banks, relative to conventional banks.' },
+    { term: 'Number of Branches / Employees', category: 'Market Size', def: 'The physical network size and workforce of the participation banking sector, indicating the scale of its retail footprint.' },
+    { term: 'Sector Growth Rate', category: 'Market Size', def: 'The year-over-year percentage growth in the sector\'s total assets, showing momentum and expansion speed.' },
 
-    table.innerHTML = '';
+    { term: 'Murabaha Financing', category: 'Financing Portfolio', def: 'A cost-plus-profit sale contract: the bank buys an asset and resells it to the customer at a disclosed markup, payable in installments. The most widely used Islamic financing instrument.' },
+    { term: 'Ijara (Leasing) Financing', category: 'Financing Portfolio', def: 'An Islamic leasing contract in which the bank owns an asset and leases its use to the customer for a rental fee, similar to an operating or finance lease.' },
+    { term: 'Mudaraba Financing', category: 'Financing Portfolio', def: 'A profit-sharing partnership where the bank provides capital and the customer provides expertise/management; profits are shared per an agreed ratio and losses are borne by the capital provider.' },
+    { term: 'Musharaka Financing', category: 'Financing Portfolio', def: 'A joint-venture partnership in which both the bank and the customer contribute capital and share profits and losses according to their equity stake.' },
+    { term: 'Sukuk Investments', category: 'Financing Portfolio', def: 'Sharia-compliant investment certificates representing ownership in tangible assets or projects, functioning as the Islamic finance equivalent of bonds.' },
+    { term: 'SME / Retail / Corporate Financing', category: 'Financing Portfolio', def: 'The financing portfolio broken down by customer segment — small & medium enterprises, individual retail customers, and large corporate clients.' },
+    { term: 'Non-Performing Financing (NPF)', category: 'Financing Portfolio', def: 'The portion of financing where the customer has defaulted or is significantly overdue on payments — the Islamic-finance equivalent of a non-performing loan.' },
 
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    ['Dataset', 'Metric', 'Year', 'Value'].forEach(h => {
-        const th = document.createElement('th');
-        th.textContent = h;
-        headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
+    { term: 'Participation Accounts', category: 'Deposits', def: 'Profit-and-loss-sharing deposit accounts — the Islamic equivalent of a savings account — where depositors earn a share of the bank\'s investment profits instead of fixed interest.' },
+    { term: 'Special Current Accounts', category: 'Deposits', def: 'Capital-guaranteed, non-interest current accounts used for everyday transactions; depositors receive no profit share and the bank cannot invest these funds for its own gain in the same way.' },
+    { term: 'Term Participation Accounts', category: 'Deposits', def: 'Participation accounts placed for a fixed maturity/term rather than being available on demand, typically offering a different profit-sharing arrangement based on tenor.' },
+    { term: '1M / 3M / 6M / 12M Term Accounts', category: 'Deposits', def: 'The maturity buckets used to break down Term Participation Accounts by duration — one, three, six, and twelve months — revealing customer preference for shorter vs. longer commitments.' },
+    { term: 'Retail vs Corporate Deposits', category: 'Deposits', def: 'Deposits segmented by depositor type: individual retail customers versus corporate/institutional clients — useful for gauging funding concentration.' },
+    { term: 'Deposits by Currency (TL)', category: 'Deposits', def: 'The portion of total deposits held in Turkish Lira, as opposed to foreign-currency-denominated deposits.' },
 
-    const tbody = document.createElement('tbody');
+    { term: 'NPF Ratio', category: 'Risk & Stability', def: 'Non-Performing Financing divided by Total Financing. A core asset-quality indicator — the lower it is, the healthier the financing book.' },
+    { term: 'Capital Adequacy Ratio (CAR)', category: 'Risk & Stability', def: 'A bank\'s capital measured against its risk-weighted assets. It shows how well-cushioned the bank is to absorb unexpected losses; regulators set minimum thresholds.' },
+    { term: 'Liquidity Coverage Ratio (LCR)', category: 'Risk & Stability', def: 'The ratio of high-quality liquid assets to expected net cash outflows over a 30-day stress period — a measure of short-term liquidity resilience.' },
+    { term: 'Loan-to-Deposit Ratio (LDR)', category: 'Risk & Stability', def: 'Total financing extended relative to total deposits collected. A high LDR signals heavier reliance on financing relative to the stable deposit base.' },
+    { term: 'Asset Quality', category: 'Risk & Stability', def: 'A broader composite indicator of the health of the bank\'s financing/asset portfolio, complementing the NPF Ratio.' },
+    { term: 'ROA / ROE', category: 'Risk & Stability', def: 'Return on Assets and Return on Equity — profitability ratios measuring how efficiently the bank generates profit from its asset base and shareholder equity.' },
 
-    datasets.forEach(ds => {
-        const { name, data } = ds;
-        if (!data || !data.years || !data.metrics) return;
+    { term: 'Sustainable Sukuk', category: 'ESG & Climate', def: 'Sukuk (Islamic bond-equivalent) certificates issued specifically to fund green, social, or sustainability-linked projects.' },
+    { term: 'GHG Emissions', category: 'ESG & Climate', def: 'Greenhouse gas emissions associated with the bank\'s financed activities and operations — a key environmental-footprint metric.' },
+    { term: 'Avg. ESG Score (Weighted)', category: 'ESG & Climate', def: 'A composite score summarizing Environmental, Social, and Governance performance, weighted across multiple underlying indicators.' },
+    { term: 'Social Impact Projects / SME Financing', category: 'ESG & Climate', def: 'Financing directed toward projects with a measurable social benefit, including support for small and medium-sized enterprises.' },
 
-        const years = data.years;
-        Object.keys(data.metrics).forEach(metricName => {
-            const arr = data.metrics[metricName] || [];
-            years.forEach((year, i) => {
-                const tr = document.createElement('tr');
+    { term: 'Inflation Rate (CPI)', category: 'Macroeconomics', def: 'The year-over-year percentage change in the Consumer Price Index — the headline measure of inflation in the Turkish economy.' },
+    { term: 'Money Supply (M2)', category: 'Macroeconomics', def: 'A broad measure of money supply including cash, checking deposits, and easily convertible near-money — an indicator of overall liquidity in the economy.' },
+    { term: 'PB Sectoral Financing', category: 'Macroeconomics', def: 'The total value of financing extended by the participation banking sector as a whole, used here for macro-level context.' },
+    { term: 'PB Market Share (%)', category: 'Macroeconomics', def: 'Participation banking\'s share of the total Turkish banking sector, tracked as a macroeconomic indicator alongside inflation and money supply.' }
+];
 
-                const tdDataset = document.createElement('td');
-                tdDataset.textContent = name;
+function renderGlossary() {
+    const list = document.getElementById('glossary-list');
+    const search = document.getElementById('glossary-search');
+    const countEl = document.getElementById('glossary-count');
+    if (!list) return;
 
-                const tdMetric = document.createElement('td');
-                tdMetric.textContent = metricName;
+    function render(filterText) {
+        const q = (filterText || '').trim().toLowerCase();
+        const matches = GLOSSARY_TERMS.filter(item =>
+            !q || item.term.toLowerCase().includes(q) || item.def.toLowerCase().includes(q) || item.category.toLowerCase().includes(q)
+        );
 
-                const tdYear = document.createElement('td');
-                tdYear.textContent = year;
+        list.innerHTML = '';
 
-                const tdValue = document.createElement('td');
-                tdValue.textContent = formatNumber(arr[i]);
+        if (!matches.length) {
+            const empty = document.createElement('div');
+            empty.className = 'glossary-empty';
+            empty.textContent = `No terms match "${filterText}".`;
+            list.appendChild(empty);
+        } else {
+            let lastCategory = null;
+            matches.forEach(item => {
+                if (item.category !== lastCategory) {
+                    const catEl = document.createElement('div');
+                    catEl.className = 'glossary-category';
+                    catEl.textContent = item.category;
+                    list.appendChild(catEl);
+                    lastCategory = item.category;
+                }
 
-                tr.appendChild(tdDataset);
-                tr.appendChild(tdMetric);
-                tr.appendChild(tdYear);
-                tr.appendChild(tdValue);
+                const itemEl = document.createElement('div');
+                itemEl.className = 'glossary-item';
 
-                tbody.appendChild(tr);
+                const btn = document.createElement('button');
+                btn.className = 'glossary-term';
+                btn.innerHTML = `<span>${item.term}</span><span class="caret">▶</span>`;
+                btn.addEventListener('click', () => {
+                    itemEl.classList.toggle('open');
+                });
+
+                const defEl = document.createElement('div');
+                defEl.className = 'glossary-def';
+                defEl.textContent = item.def;
+
+                itemEl.appendChild(btn);
+                itemEl.appendChild(defEl);
+                list.appendChild(itemEl);
             });
-        });
-    });
+        }
 
-    table.appendChild(thead);
-    table.appendChild(tbody);
+        if (countEl) {
+            countEl.textContent = `${matches.length} of ${GLOSSARY_TERMS.length} terms`;
+        }
+    }
+
+    render('');
+
+    if (search) {
+        search.addEventListener('input', () => render(search.value));
+    }
 }
 
 /* ============================================================
@@ -1026,15 +1088,6 @@ function updateAll() {
     buildRiskChart(riskData);
     buildESGChart(esgData);
     buildMacroChart(macroData);
-
-    buildDataExplorerTable([
-        { name: 'Market Size', data: marketData },
-        { name: 'Financing Portfolio', data: financingData },
-        { name: 'Deposits', data: depositsData },
-        { name: 'Risk & Stability', data: riskData },
-        { name: 'ESG & Climate', data: esgData },
-        { name: 'Macroeconomics', data: macroData }
-    ]);
 }
 
 /* ============================================================
@@ -1043,6 +1096,7 @@ function updateAll() {
 
 window.addEventListener('DOMContentLoaded', async () => {
     setupThemeToggle();
+    renderGlossary();
 
     const overlay = document.getElementById('modal-overlay');
     const closeBtn = document.getElementById('modal-close');

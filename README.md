@@ -19,14 +19,14 @@ The dashboard is hosted on **GitHub Pages** and built using **Plotly**, **HTML**
 ---
 
 ## 📊 Dashboard Sections  
-1. **Market Overview**  
-2. **Financing Portfolio (Islamic Products)**  
-3. **Deposits & Participation Accounts**  
-4. **Risk & Stability Metrics**  
-5. **ESG & Climate Metrics**  
-6. **Macroeconomic Indicators**  
-7. **Bank‑Level Insights**  
-8. **Data Explorer**
+1. **Glossary of Terms**  
+2. **Market Overview**  
+3. **Financing Portfolio (Islamic Products)**  
+4. **Deposits & Participation Accounts**  
+5. **Risk & Stability Metrics**  
+6. **ESG & Climate Metrics**  
+7. **Macroeconomic Indicators**  
+8. **Bank‑Level Insights**
 
 ---
 

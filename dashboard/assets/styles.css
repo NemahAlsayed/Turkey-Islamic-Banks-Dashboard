@@ -2,18 +2,22 @@
    ROOT THEME VARIABLES
    ============================================================ */
 :root {
-    --navy: #0A1A2F;
-    --emerald: #0F8A5F;
-    --gold: #C9A227;
-    --light-gray: #E5E7EB;
+    /* Premium brand palette */
+    --navy: #013026;
+    --deep-blue: #014760;
+    --emerald: #107e57;
+    --lime: #a1ce3f;
+    --pale-lime: #cbe58e;
+
+    --light-gray: #eef6e2;
     --white: #FFFFFF;
 
-    --dark-bg: #050814;
-    --dark-card: #111827;
-    --dark-text: #F9FAFB;
+    --dark-bg: #011b15;
+    --dark-card: #013026;
+    --dark-text: #eef6e2;
 
     --radius: 12px;
-    --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-light: 0 4px 12px rgba(1,48,38,0.10);
     --shadow-dark: 0 4px 16px rgba(0,0,0,0.6);
 }
 
@@ -37,22 +41,6 @@ body.dark {
 }
 
 /* ============================================================
-   INFO ICON STYLING
-   ============================================================ */
-.info-icon {
-    cursor: help;
-    color: var(--emerald);
-    font-size: 1.2em;
-    margin-left: 8px;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
-}
-
-.info-icon:hover {
-    opacity: 1;
-}
-
-/* ============================================================
    PREMIUM SIDEBAR
    ============================================================ */
 .sidebar {
@@ -70,7 +58,7 @@ body.dark {
 }
 
 body.dark .sidebar {
-    background: #020617;
+    background: var(--dark-bg);
 }
 
 .brand-title {
@@ -81,13 +69,13 @@ body.dark .sidebar {
 }
 
 .brand-title span {
-    color: var(--gold);
+    color: var(--lime);
 }
 
 .tagline {
     margin-top: 6px;
     font-size: 13px;
-    color: var(--emerald);
+    color: var(--pale-lime);
     letter-spacing: 0.5px;
 }
 
@@ -108,7 +96,7 @@ body.dark .sidebar {
 }
 
 .nav a:hover {
-    color: var(--gold);
+    color: var(--lime);
 }
 
 /* Theme toggle button */
@@ -125,7 +113,7 @@ body.dark .sidebar {
 }
 
 body.dark .theme-toggle {
-    background: var(--gold);
+    background: var(--lime);
     color: var(--navy);
 }
 
@@ -162,9 +150,9 @@ body.dark .theme-toggle {
 }
 
 body.dark .slicer select {
-    background: var(--dark-card);
+    background: var(--deep-blue);
     color: var(--dark-text);
-    border: 1px solid #374151;
+    border: 1px solid var(--emerald);
 }
 
 /* ============================================================
@@ -187,13 +175,39 @@ body.dark .section {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
     color: var(--emerald);
-    margin-bottom: 25px;
+    margin-bottom: 12px;
+}
+
+body.dark .section-title {
+    color: var(--pale-lime);
+}
+
+.chart-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #3a4a44;
+    background: var(--light-gray);
+    border-left: 4px solid var(--emerald);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+body.dark .chart-desc {
+    color: var(--dark-text);
+    background: rgba(161,206,63,0.08);
+    border-left-color: var(--lime);
 }
 
 .section-note {
     font-size: 14px;
-    color: var(--gold);
+    color: var(--deep-blue);
     margin-bottom: 10px;
+    font-weight: 500;
+}
+
+body.dark .section-note {
+    color: var(--lime);
 }
 
 /* ============================================================
@@ -213,7 +227,7 @@ body.dark .section {
 }
 
 body.dark .kpi-card {
-    background: #1f2937;
+    background: var(--deep-blue);
     box-shadow: var(--shadow-dark);
 }
 
@@ -221,17 +235,24 @@ body.dark .kpi-card {
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #6B7280;
+    color: var(--navy);
+    opacity: 0.7;
 }
 
 body.dark .kpi-card h3 {
-    color: #9CA3AF;
+    color: var(--pale-lime);
+    opacity: 0.85;
 }
 
 .kpi-value {
     margin-top: 10px;
     font-size: 24px;
     font-weight: 600;
+    color: var(--navy);
+}
+
+body.dark .kpi-value {
+    color: var(--white);
 }
 
 /* ============================================================
@@ -242,29 +263,150 @@ body.dark .kpi-card h3 {
 }
 
 /* ============================================================
-   DATA TABLE
+   GLOSSARY
    ============================================================ */
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.glossary-section {
+    border-top: 4px solid var(--lime);
+}
+
+.glossary-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.glossary-search {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--emerald);
     font-size: 14px;
+    font-family: inherit;
+    background: var(--white);
+    color: var(--navy);
 }
 
-.data-table th {
-    background: var(--emerald);
-    color: var(--white);
-    padding: 12px;
+.glossary-search:focus {
+    outline: none;
+    border-color: var(--lime);
+    box-shadow: 0 0 0 3px rgba(161,206,63,0.35);
+}
+
+body.dark .glossary-search {
+    background: var(--deep-blue);
+    color: var(--dark-text);
+    border-color: var(--lime);
+}
+
+.glossary-count {
+    font-size: 13px;
+    color: var(--deep-blue);
+    white-space: nowrap;
+}
+
+body.dark .glossary-count {
+    color: var(--pale-lime);
+}
+
+.glossary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.glossary-category {
+    margin-top: 18px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--emerald);
+}
+
+body.dark .glossary-category {
+    color: var(--lime);
+}
+
+.glossary-item {
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--white);
+}
+
+body.dark .glossary-item {
+    background: var(--deep-blue);
+    border-color: rgba(161,206,63,0.25);
+}
+
+.glossary-term {
+    width: 100%;
     text-align: left;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    border-left: 4px solid var(--pale-lime);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.data-table td {
-    padding: 10px;
-    border-bottom: 1px solid #d1d5db;
+body.dark .glossary-term {
+    color: var(--white);
 }
 
-body.dark .data-table td {
-    border-bottom: 1px solid #374151;
+.glossary-term:hover {
+    background: rgba(161,206,63,0.12);
+    border-left-color: var(--lime);
+}
+
+.glossary-term .caret {
+    color: var(--emerald);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+body.dark .glossary-term .caret {
+    color: var(--lime);
+}
+
+.glossary-item.open .glossary-term .caret {
+    transform: rotate(90deg);
+}
+
+.glossary-def {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #3a4a44;
+}
+
+body.dark .glossary-def {
+    color: var(--pale-lime);
+}
+
+.glossary-item.open .glossary-def {
+    max-height: 260px;
+    padding: 0 16px 14px;
+}
+
+.glossary-empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--deep-blue);
+    font-size: 14px;
 }
 
 /* ============================================================

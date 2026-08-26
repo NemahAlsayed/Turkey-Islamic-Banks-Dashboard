@@ -26,6 +26,7 @@
     </div>
 
     <nav class="nav">
+        <a href="#glossary">Glossary</a>
         <a href="#kpis">KPIs Overview</a>
         <a href="#market">Market Size</a>
         <a href="#financing">Financing Portfolio</a>
@@ -35,7 +36,6 @@
         <a href="#risk">Risk & Stability</a>
         <a href="#esg">ESG & Climate</a>
         <a href="#macro">Macroeconomics</a>
-        <a href="#explorer">Data Explorer</a>
     </nav>
 
     <button id="theme-toggle" class="theme-toggle">Dark Mode</button>
@@ -45,6 +45,19 @@
      MAIN CONTENT AREA
      ============================================================ -->
 <main class="content">
+
+    <!-- =======================
+         GLOSSARY
+         ======================= -->
+    <section id="glossary" class="section glossary-section">
+        <h2 class="section-title">Glossary of Terms</h2>
+        <p class="chart-desc">A comprehensive, searchable reference for every financial, Islamic-finance, and macroeconomic term used across this dashboard. Start typing to filter, or click any term to expand its full definition.</p>
+        <div class="glossary-search-wrap">
+            <input type="text" id="glossary-search" class="glossary-search" placeholder="Search glossary — e.g. Murabaha, CAR, ESG, NPF..." autocomplete="off" />
+            <span id="glossary-count" class="glossary-count"></span>
+        </div>
+        <div id="glossary-list" class="glossary-list"></div>
+    </section>
 
     <!-- =======================
          SLICERS
@@ -98,7 +111,8 @@
          MARKET SIZE
          ======================= -->
     <section id="market" class="section">
-        <h2 class="section-title">Market Size <span class="info-icon" title="📊 Market Size Chart — 'Total Assets & Deposits Over Time' This chart shows how Türkiye's Islamic banking sector has evolved by tracking Total Assets and Total Deposits across years. It highlights the selected year in gold, making it easy to compare that year's performance against long-term trends. It helps the reader understand whether the sector is expanding, stabilizing, or contracting.">ℹ️</span></h2>
+        <h2 class="section-title">Market Size</h2>
+        <p class="chart-desc">📊 <strong>Total Assets &amp; Deposits Over Time.</strong> Tracks how Türkiye's Islamic banking sector has evolved by following Total Assets and Total Deposits across every available year. The selected year is highlighted in lime so you can compare it against the long-term trend and see whether the sector is expanding, stabilizing, or contracting.</p>
         <div id="market_chart" class="chart"></div>
     </section>
 
@@ -106,7 +120,8 @@
          FINANCING PORTFOLIO
          ======================= -->
     <section id="financing" class="section">
-        <h2 class="section-title">Financing Portfolio <span class="info-icon" title="💼 Financing Portfolio Chart — 'Murabaha vs Ijara Financing' This visualization compares the two core Islamic financing instruments — Murabaha and Ijara — over time. It reveals shifts in financing composition, customer demand, and the bank's exposure to different Sharia-compliant structures. The highlighted year shows how the current period fits into the broader financing trend.">ℹ️</span></h2>
+        <h2 class="section-title">Financing Portfolio</h2>
+        <p class="chart-desc">💼 <strong>Murabaha, Ijara, Mudaraba &amp; Musharaka Financing.</strong> Compares the core Islamic financing instruments over time, revealing shifts in financing composition, customer demand, and the sector's exposure to different Sharia-compliant structures. Switch to "All Products" to see profit-and-loss-sharing instruments (Mudaraba &amp; Musharaka) alongside the two dominant contracts.</p>
         <div class="slicer" style="margin-bottom: 15px;">
             <label for="financing-view">View</label>
             <select id="financing-view">
@@ -121,8 +136,9 @@
          DEPOSITS
          ======================= -->
     <section id="deposits" class="section">
-        <h2 class="section-title">Deposits <span class="info-icon" title="🏦 Deposits Chart — 'Deposit Structure for Selected Year' This single-year bar chart breaks down deposits into Participation Accounts and Term Participation Accounts, or into Retail vs Corporate depending on the slicer. It provides a snapshot of the bank's funding structure for the chosen year, helping the reader understand liquidity sources and customer behavior. 📈 Term Accounts Drill-Down (Modal) — '1M / 3M / 6M / 12M Term Distribution' When the user clicks on 'Term Participation Accounts,' a modal opens showing the distribution of short-term and long-term deposit maturities. It reveals customer preferences for deposit durations and helps assess liquidity risk, rollover behavior, and funding stability.">ℹ️</span></h2>
-        <p class="section-note">Click "Term Participation Accounts" to view term breakdown.</p>
+        <h2 class="section-title">Deposits</h2>
+        <p class="chart-desc">🏦 <strong>Deposit Structure for the Selected Year.</strong> A single-year bar chart breaking down deposits into Participation Accounts and Term Participation Accounts, or into Retail vs Corporate depending on the Customer Type filter. It's a snapshot of the bank's funding structure, helping you read liquidity sources and customer behavior.</p>
+        <p class="section-note">📈 Click "Term Participation Accounts" to open an interactive drill-down showing the 1M / 3M / 6M / 12M maturity distribution — useful for assessing rollover behavior and liquidity risk.</p>
         <div id="deposits_chart" class="chart"></div>
     </section>
 
@@ -130,7 +146,8 @@
          CUSTOMER COMPARISON
          ======================= -->
     <section id="comparison" class="section">
-        <h2 class="section-title">Customer Comparison <span class="info-icon" title="👥 Customer Comparison Chart — 'Retail vs Corporate Deposits' This chart compares Retail and Corporate deposits for the selected year. It highlights which customer segment contributes more to the bank's funding base and how the balance shifts across years. It's essential for understanding customer concentration and market positioning.">ℹ️</span></h2>
+        <h2 class="section-title">Customer Comparison</h2>
+        <p class="chart-desc">👥 <strong>Retail vs Corporate Deposits.</strong> Compares Retail and Corporate deposits for the selected year, showing which customer segment contributes more to the funding base. Move the Year slicer to see how the balance between segments shifts over time — essential for understanding customer concentration.</p>
         <div id="customer_comparison_chart" class="chart"></div>
     </section>
 
@@ -138,7 +155,8 @@
          FORECASTING
          ======================= -->
     <section id="forecast" class="section">
-        <h2 class="section-title">Forecasting <span class="info-icon" title="🔮 Forecasting Chart — 'Participation Accounts Forecast (Regression Model)' This chart shows historical Participation Accounts alongside a three-year linear regression forecast. Actual values appear as a solid line, while projected values appear as a dashed gold line. It provides a forward-looking estimate of deposit growth, supporting planning, budgeting, and strategic decision-making.">ℹ️</span></h2>
+        <h2 class="section-title">Forecasting</h2>
+        <p class="chart-desc">🔮 <strong>Three-Year Linear Regression Forecast.</strong> Shows historical values for the selected deposit metric alongside a projection for the next three years. Actual values appear as a solid emerald line; projected values appear as a dashed lime line. Switch metrics below to forecast Participation Accounts, Special Current Accounts, or Term Participation Accounts.</p>
         <div class="slicer" style="margin-bottom: 15px;">
             <label for="forecast-metric">Forecast Metric</label>
             <select id="forecast-metric">
@@ -154,7 +172,8 @@
          RISK & STABILITY
          ======================= -->
     <section id="risk" class="section">
-        <h2 class="section-title">Risk & Stability <span class="info-icon" title="⚠️ Risk & Stability Chart — 'NPF Ratio & CAR Over Time' This dual-axis chart visualizes the Non-Performing Financing (NPF) Ratio and the Capital Adequacy Ratio (CAR). It gives a quick view of asset quality and capital strength — two core indicators of financial stability in Islamic banking. The highlighted year helps contextualize current risk levels.">ℹ️</span></h2>
+        <h2 class="section-title">Risk &amp; Stability</h2>
+        <p class="chart-desc">⚠️ <strong>Asset Quality &amp; Capital Strength.</strong> A dual-axis chart visualizing the Non-Performing Financing (NPF) Ratio, Capital Adequacy Ratio (CAR), Liquidity Coverage Ratio (LCR), and Loan-to-Deposit Ratio (LDR) — the four core indicators of financial stability in Islamic banking. Use the Metrics selector to focus on a specific pair or view all four together.</p>
         <div class="slicer" style="margin-bottom: 15px;">
             <label for="risk-metrics">Metrics</label>
             <select id="risk-metrics">
@@ -170,7 +189,8 @@
          ESG & CLIMATE
          ======================= -->
     <section id="esg" class="section">
-        <h2 class="section-title">ESG & Climate <span class="info-icon" title="🌱 ESG & Climate Chart — 'Sustainable Sukuk & ESG Score' This combined bar-and-line chart shows Sustainable Sukuk issuance and the Weighted ESG Score across years. It highlights the sector's progress in sustainability, green financing, and ESG performance — increasingly important for investors and regulators.">ℹ️</span></h2>
+        <h2 class="section-title">ESG &amp; Climate</h2>
+        <p class="chart-desc">🌱 <strong>Sustainability Performance.</strong> A combined bar-and-line chart pairing the Weighted ESG Score with a sustainability driver of your choice — Sustainable Sukuk issuance, GHG Emissions, or Social Impact Project financing. Highlights the sector's progress on green financing and ESG performance, increasingly important to investors and regulators.</p>
         <div class="slicer" style="margin-bottom: 15px;">
             <label for="esg-view">View</label>
             <select id="esg-view">
@@ -186,7 +206,8 @@
          MACROECONOMICS
          ======================= -->
     <section id="macro" class="section">
-        <h2 class="section-title">Macroeconomics <span class="info-icon" title="📉 Macroeconomics Chart — 'Inflation (CPI) & Money Supply (M2)' This dual-axis chart tracks Inflation (CPI) and Money Supply (M2) over time. It provides macroeconomic context for Islamic banking performance, showing how liquidity conditions and inflation pressures evolve.">ℹ️</span></h2>
+        <h2 class="section-title">Macroeconomics</h2>
+        <p class="chart-desc">📉 <strong>Macroeconomic Backdrop.</strong> A dual-axis chart tracking Inflation (CPI) against either Money Supply (M2) or PB Sectoral Financing. Provides the macroeconomic context behind Islamic banking performance, showing how liquidity conditions and inflation pressures move together over time.</p>
         <div class="slicer" style="margin-bottom: 15px;">
             <label for="macro-metrics">Metrics</label>
             <select id="macro-metrics">
@@ -197,13 +218,6 @@
         <div id="macro_chart" class="chart"></div>
     </section>
 
-    <!-- =======================
-         DATA EXPLORER
-         ======================= -->
-    <section id="explorer" class="section">
-        <h2 class="section-title">Data Explorer <span class="info-icon" title="📑 Data Explorer Table — 'Full Dataset Overview' This table displays every metric, every year, and every value used in the dashboard. It offers transparency, auditability, and a convenient way to inspect raw data without opening CSV files.">ℹ️</span></h2>
-        <table id="data-explorer-table" class="data-table"></table>
-    </section>
 
 </main>
 
